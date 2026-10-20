@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      MIN_RATE: 5
+      MAX_RATE: 100
+      INITIAL_RATE: 50
+      BUCKET_CAPACITY: 50
+      REFILL_RATE: 50
+      QUEUE_CAPACITY: 50
+      LEAK_RATE: 20
+      TELEMETRY_INTERVAL: 1
+      COOLDOWN_SECONDS: 3
+      BACKEND_URL: http://backend:8000
+      CORS_ORIGINS: http://localhost:5173
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
